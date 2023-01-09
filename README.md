@@ -20,7 +20,7 @@ $ npm init
 
 #### Modify package.json scripts to include the following
 
-```bash
+```json
 "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
@@ -60,7 +60,7 @@ $ touch .eslintrc
 
 ### Add the following to .eslintrc
 
-```bash
+```json
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
@@ -85,7 +85,7 @@ $ echo node_modules >> .eslintignore
 
 ### Add linting to package.json scripts
 
-```bash
+```json
 "scripts": {
     ...
     "lint": "eslint . --ext .ts"
@@ -100,7 +100,7 @@ $ echo node_modules >> .eslintignore
 - [Facebook rules config](https://www.npmjs.com/package/eslint-config-fbjs)
 - [Other configs and plugins](https://github.com/dustinspecker/awesome-eslint)
 
-```bash
+```json
 "rules": {
     "no-console": 2,           // compile error for console.log
     "semi": ["error", "never"] // disallow semicolons
@@ -119,7 +119,7 @@ $ npm install @shopify/eslint-plugin --save-dev
 
 NOTE: the shopify plugin requires "parserOptions" to be provided
 
-```bash
+```json
 {
     ...
     "extends": [
@@ -151,11 +151,11 @@ $ npm install --save-dev prettier
 $ touch .prettierrc
 ```
 
-#### Add configuration rules
+#### Add configuration rules to .prettierrc
 
 [Rules](https://prettier.io/docs/en/options.html)
 
-```bash
+```json
 {
   "semi": false,
   "trailingComma": "none",
@@ -164,9 +164,9 @@ $ touch .prettierrc
 }
 ```
 
-#### Add prettier to package.json
+#### Add prettier command to package.json scripts
 
-```bash
+```json
 {
   "scripts": {
     ...
@@ -175,6 +175,52 @@ $ touch .prettierrc
 }
 ```
 
+#### Update VS Code Workspace settings
+
+1. CMD + SHIFT + P 
+2. type `>preferences open settings` to create a workspace specific .vscode/settings.json file
+3. Add the following to the .vscode/settings.json:
+
+```json
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+}
+```
+
+### Configure prettier to work with eslint
+
+#### Install the required packages
+
+```bash
+npm install --save-dev eslint-config-prettier eslint-plugin-prettier
+```
+
+- eslint-config-prettier: Turns off all ESLint rules that have the potential to interfere with Prettier rules.
+- eslint-plugin-prettier: Turns Prettier rules into ESLint rules.
+
+#### Update the eslintrc file 
+
+```json
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+--> "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+--> "prettier"
+  ],
+  "rules": {
+    "no-console": 1,       // Means warning
+--> "prettier/prettier": 2 // Means error
+  }
+}
+```
 
 ## 4. Miscellaneous
 
