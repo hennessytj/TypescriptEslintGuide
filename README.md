@@ -135,12 +135,58 @@ NOTE: the shopify plugin requires "parserOptions" to be provided
 
 ## 3. Typescript code formatting using prettier
 
+### Install prettier
+
+[Prettier Config Docs](https://prettier.io/docs/en/configuration.html)
+
+```bash
+$ npm install --save-dev prettier
+```
+
+### Configure prettier
+
+#### Create config file
+
+```bash
+$ touch .prettierrc
+```
+
+#### Add configuration rules
+
+[Rules](https://prettier.io/docs/en/options.html)
+
+```bash
+{
+  "semi": false,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 80
+}
+```
+
+#### Add prettier to package.json
+
+```bash
+{
+  "scripts": {
+    ...
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  }
+}
+```
+
+
 ## 4. Miscellaneous
 
-Build project without configuring package.json scripts
+Build project without configuring package.json scripts.
 
 ```bash
 $ npx tsc --build --clean
 OR
 $ npx tsc
 ```
+
+### Other useful links
+
+- [Eslint w/ typescript](https://thesoreon.com/blog/how-to-set-up-eslint-with-typescript-in-vs-code)
+- [Eslint getting started](https://eslint.org/docs/latest/user-guide/getting-started)
