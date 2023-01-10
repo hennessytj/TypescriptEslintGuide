@@ -182,7 +182,8 @@ $ touch .prettierrc
 3. Add the following to the .vscode/settings.json:
 
 ```json
-{
+{   
+    "eslint.validate": ["typescript"],
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true
 }
